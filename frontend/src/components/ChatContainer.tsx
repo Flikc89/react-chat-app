@@ -41,7 +41,7 @@ function ChatContainer() {
     if (!chatId || previousChatIdRef.current === chatId) return;
     previousChatIdRef.current = chatId;
 
-    getMessagesByUserId(chatId).finally(() => {
+    getMessagesByUserId(chatId).then(() => {
       if (previousChatIdRef.current === chatId) subscribeToMessages();
     });
 
