@@ -16,6 +16,7 @@ import type {
 import {
   createLastMessage,
   createOptimisticMessage,
+  findChatById,
   getChatIdFromMessage,
   replaceTemporaryMessage,
   updateChatLastMessage,
@@ -133,9 +134,7 @@ export const useChatStore = create<ChatStore>()(
             }),
           }));
         } catch (error: unknown) {
-          const previousLastMessage = chats.find(
-            (c) => c._id === chatId
-          )?.lastMessage;
+          const previousLastMessage = findChatById(chats, chatId)?.lastMessage;
           const errorMessage = getErrorMessage(error);
           toast.error(errorMessage || 'Не удалось отправить сообщение');
           set((state) => ({

@@ -63,6 +63,13 @@ export function getChatIdFromMessage(message: Message): string {
     : message.senderId;
 }
 
+/**
+ * Находит чат по ID в массиве чатов
+ */
+export function findChatById(chats: Chat[], chatId: string): Chat | undefined {
+  return chats.find((c) => c._id === chatId);
+}
+
 export interface ReplaceTemporaryMessageParams {
   messages: Message[];
   tempId: string;

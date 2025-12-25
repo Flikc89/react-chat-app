@@ -20,7 +20,7 @@ export default function VirtualizedMessagesList({
   const virtualizer = useVirtualizer({
     count: messages.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 68,
+    estimateSize: () => 1000,
     overscan: 10,
     initialOffset: Number.MAX_SAFE_INTEGER,
     paddingStart: 16,

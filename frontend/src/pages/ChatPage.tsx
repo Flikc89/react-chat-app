@@ -1,12 +1,17 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
 import ChatContainer from '../components/ChatContainer';
 import ChatsList from '../components/ChatsList';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 import PageContainer from '../components/PageContainer';
 import { useChatStore } from '../store/useChatStore';
+import { findChatById } from '../utils/chatUtils';
+
+let hasSyncedFromUrl = false;
 
 const ChatPage = () => {
+  const { chatId } = useParams<{ chatId?: string }>();
   const {
     selectedUser,
     chats,
@@ -14,6 +19,7 @@ const ChatPage = () => {
     isUsersLoading,
     subscribeToChatList,
     unsubscribeFromChatList,
+    setSelectedUser,
   } = useChatStore(
     useShallow((state) => ({
       selectedUser: state.selectedUser,
@@ -33,6 +39,16 @@ const ChatPage = () => {
   }, [chats.length, isUsersLoading]);
 
   useEffect(() => {
+    if (!hasSyncedFromUrl && chatId && chats.length > 0) {
+      const chat = findChatById(chats, chatId);
+      if (chat) {
+        setSelectedUser(chat);
+        hasSyncedFromUrl = true;
+      }
+    }
+  }, [chats, chatId]);
+
+  useEffect(() => {
     subscribeToChatList();
     return () => {
       unsubscribeFromChatList();
@@ -44,7 +60,7 @@ const ChatPage = () => {
       <PageContainer>
         <div
           className={`bg-gray-900/70 flex flex-col min-h-0 relative isolate z-0 w-80 md:w-96
-            ${selectedUser ? 'hidden md:flex' : 'flex w-full'}`}
+            ${selectedUser ? 'hidden md:flex' : ''}`}
         >
           <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2 min-h-0 w-full">
             <ChatsList />

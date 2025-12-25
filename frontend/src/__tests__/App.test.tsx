@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import App from '../App';
 import * as useSocketStoreModule from '../store/useSocketStore';
@@ -26,54 +26,60 @@ describe('App', () => {
     } as any);
   });
 
-  const renderComponent = (initialEntries = ['/']) => {
-    return render(
-      <MemoryRouter initialEntries={initialEntries}>
-        <App />
-      </MemoryRouter>
-    );
+  const renderComponent = async (initialEntries = ['/']) => {
+    let component: ReturnType<typeof render>;
+    await act(async () => {
+      component = render(
+        <MemoryRouter initialEntries={initialEntries}>
+          <App />
+        </MemoryRouter>
+      );
+    });
+    return component!;
   };
 
-  it('подключает сокет при монтировании', () => {
-    renderComponent();
+  it('подключает сокет при монтировании', async () => {
+    await renderComponent();
 
-    expect(mockConnectSocket).toHaveBeenCalled();
+    expect(mockConnectSocket).toHaveBeenCalledTimes(1);
   });
 
-  it('отображает ChatPage на корневом маршруте', () => {
-    renderComponent(['/']);
+  it('отображает ChatPage на корневом маршруте', async () => {
+    await renderComponent(['/']);
 
     expect(screen.getByTestId('chat-page')).toBeInTheDocument();
   });
 
-  it('отображает ChatPage на маршруте с chatId', () => {
-    renderComponent(['/chat-123']);
+  it('отображает ChatPage на маршруте с chatId', async () => {
+    await renderComponent(['/chat-123']);
 
     expect(screen.getByTestId('chat-page')).toBeInTheDocument();
   });
 
-  it('отображает AppBackground', () => {
-    renderComponent();
+  it('отображает AppBackground', async () => {
+    await renderComponent();
 
     expect(screen.getByTestId('app-background')).toBeInTheDocument();
   });
 
-  it('отображает уведомления', () => {
-    renderComponent();
+  it('отображает уведомления', async () => {
+    await renderComponent();
 
     expect(screen.getByTestId('toaster')).toBeInTheDocument();
   });
 
-  it('вызывает connectSocket только один раз при монтировании', () => {
-    const { rerender } = renderComponent();
+  it('вызывает connectSocket только один раз при монтировании', async () => {
+    const { rerender } = await renderComponent();
 
     expect(mockConnectSocket).toHaveBeenCalledTimes(1);
 
-    rerender(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+    await act(async () => {
+      rerender(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
 
     expect(mockConnectSocket).toHaveBeenCalledTimes(1);
   });
