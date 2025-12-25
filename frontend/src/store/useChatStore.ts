@@ -80,6 +80,7 @@ export const useChatStore = create<ChatStore>()(
           set((state) => ({
             isMessagesLoading: { ...state.isMessagesLoading, [userId]: false },
           }));
+          throw error;
         }
       },
 
