@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import MessageItem from '../MessageItem';
 import { CURRENT_USER_ID } from '../../constants';
 import type { Message } from '../../types';
+import MessageItem from '../MessageItem';
 
 describe('MessageItem', () => {
   const mockMessageFromCurrentUser: Message = {
@@ -21,15 +21,27 @@ describe('MessageItem', () => {
   };
 
   it('отображает сообщение от текущего пользователя', () => {
-    render(<MessageItem message={mockMessageFromCurrentUser} authUserId={CURRENT_USER_ID} />);
-    
+    render(
+      <MessageItem
+        message={mockMessageFromCurrentUser}
+        authUserId={CURRENT_USER_ID}
+      />
+    );
+
     expect(screen.getByText('Привет, это я!')).toBeInTheDocument();
   });
 
   it('отображает сообщение от другого пользователя', () => {
-    render(<MessageItem message={mockMessageFromOther} authUserId={CURRENT_USER_ID} />);
-    
-    expect(screen.getByText('Привет, это другой пользователь!')).toBeInTheDocument();
+    render(
+      <MessageItem
+        message={mockMessageFromOther}
+        authUserId={CURRENT_USER_ID}
+      />
+    );
+
+    expect(
+      screen.getByText('Привет, это другой пользователь!')
+    ).toBeInTheDocument();
   });
 
   it('отображает статус "Отправка..." для оптимистичного сообщения', () => {
@@ -38,16 +50,22 @@ describe('MessageItem', () => {
       isOptimistic: true,
     };
 
-    render(<MessageItem message={optimisticMessage} authUserId={CURRENT_USER_ID} />);
-    
+    render(
+      <MessageItem message={optimisticMessage} authUserId={CURRENT_USER_ID} />
+    );
+
     expect(screen.getByText('Отправка...')).toBeInTheDocument();
   });
 
   it('отображает время для обычного сообщения', () => {
-    render(<MessageItem message={mockMessageFromCurrentUser} authUserId={CURRENT_USER_ID} />);
-    
+    render(
+      <MessageItem
+        message={mockMessageFromCurrentUser}
+        authUserId={CURRENT_USER_ID}
+      />
+    );
+
     const timeElement = screen.getByText(/\d{2}:\d{2}/);
     expect(timeElement).toBeInTheDocument();
   });
 });
-

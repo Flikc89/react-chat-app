@@ -1,10 +1,10 @@
+import { BrowserRouter } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router';
-import ChatsList from '../ChatsList';
-import * as useChatStoreModule from '../../store/useChatStore';
 import { DEFAULT_AVATAR } from '../../constants';
+import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat } from '../../types';
+import ChatsList from '../ChatsList';
 
 jest.mock('../../store/useChatStore');
 jest.mock('../NoChatsFound', () => ({
@@ -176,4 +176,3 @@ describe('ChatsList', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/chat-1');
   });
 });
-

@@ -28,7 +28,11 @@ describe('NoChatsFound', () => {
     const { container } = render(<NoChatsFound />);
 
     const mainDiv = container.firstChild as HTMLElement;
-    expect(mainDiv).toHaveClass('flex', 'flex-col', 'items-center', 'justify-center');
+    expect(mainDiv).toHaveClass(
+      'flex',
+      'flex-col',
+      'items-center',
+      'justify-center'
+    );
   });
 });
-

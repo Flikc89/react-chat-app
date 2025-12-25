@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import VirtualizedMessagesList from '../VirtualizedMessagesList';
 import { CURRENT_USER_ID } from '../../constants';
 import type { Message } from '../../types';
+import VirtualizedMessagesList from '../VirtualizedMessagesList';
 
 const mockGetVirtualItems = jest.fn(() => [
   { key: '0', index: 0, start: 0, size: 68 },
@@ -51,7 +51,12 @@ describe('VirtualizedMessagesList', () => {
   });
 
   it('рендерит сообщения', () => {
-    render(<VirtualizedMessagesList messages={mockMessages} selectedChatId="chat-1" />);
+    render(
+      <VirtualizedMessagesList
+        messages={mockMessages}
+        selectedChatId="chat-1"
+      />
+    );
 
     expect(screen.getByText('Привет!')).toBeInTheDocument();
     expect(screen.getByText('Привет, как дела?')).toBeInTheDocument();
@@ -59,16 +64,22 @@ describe('VirtualizedMessagesList', () => {
 
   it('не падает при пустом массиве сообщений', () => {
     mockGetVirtualItems.mockReturnValueOnce([]);
-    const { container } = render(<VirtualizedMessagesList messages={[]} selectedChatId="chat-1" />);
+    const { container } = render(
+      <VirtualizedMessagesList messages={[]} selectedChatId="chat-1" />
+    );
 
     const listContainer = container.querySelector('.relative.w-full.h-full');
     expect(listContainer).toBeInTheDocument();
   });
 
   it('передает selectedChatId в компонент', () => {
-    render(<VirtualizedMessagesList messages={mockMessages} selectedChatId="test-chat-id" />);
+    render(
+      <VirtualizedMessagesList
+        messages={mockMessages}
+        selectedChatId="test-chat-id"
+      />
+    );
 
     expect(screen.getByText('Привет!')).toBeInTheDocument();
   });
 });
-

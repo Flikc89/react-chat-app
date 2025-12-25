@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { io } from 'socket.io-client';
-import { useSocketStore } from '../useSocketStore';
 import { API_URL } from '../../constants';
+import { useSocketStore } from '../useSocketStore';
 
 jest.mock('socket.io-client');
 
@@ -129,4 +129,3 @@ describe('useSocketStore', () => {
     });
   });
 });
-

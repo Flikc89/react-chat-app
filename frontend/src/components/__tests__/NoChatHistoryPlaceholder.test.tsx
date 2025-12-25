@@ -15,25 +15,38 @@ describe('NoChatHistoryPlaceholder', () => {
 
   it('отображает имя пользователя', () => {
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
-    expect(screen.getByText(/Начните разговор с Петр Петров/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Начните разговор с Петр Петров/)
+    ).toBeInTheDocument();
   });
 
   it('отображает описание', () => {
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     expect(
-      screen.getByText(/Это начало вашего разговора. Отправьте сообщение, чтобы начать общение!/)
+      screen.getByText(
+        /Это начало вашего разговора. Отправьте сообщение, чтобы начать общение!/
+      )
     ).toBeInTheDocument();
   });
 
   it('отображает иконку сообщения', () => {
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     expect(screen.getByTestId('message-icon')).toBeInTheDocument();
@@ -41,7 +54,10 @@ describe('NoChatHistoryPlaceholder', () => {
 
   it('отображает все три кнопки быстрых сообщений', () => {
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     expect(screen.getByText('👋 Привет')).toBeInTheDocument();
@@ -52,7 +68,10 @@ describe('NoChatHistoryPlaceholder', () => {
   it('вызывает onQuickMessage с "Привет" при клике на первую кнопку', async () => {
     const user = userEvent.setup();
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     const button = screen.getByText('👋 Привет');
@@ -65,7 +84,10 @@ describe('NoChatHistoryPlaceholder', () => {
   it('вызывает onQuickMessage с "Как дела?" при клике на вторую кнопку', async () => {
     const user = userEvent.setup();
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     const button = screen.getByText('🤝 Как дела?');
@@ -78,7 +100,10 @@ describe('NoChatHistoryPlaceholder', () => {
   it('вызывает onQuickMessage с "Встретимся?" при клике на третью кнопку', async () => {
     const user = userEvent.setup();
     render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     const button = screen.getByText('📅 Встретимся?');
@@ -90,25 +115,35 @@ describe('NoChatHistoryPlaceholder', () => {
 
   it('корректно работает с разными именами', () => {
     render(
-      <NoChatHistoryPlaceholder name="Иван Иванов" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Иван Иванов"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
-    expect(screen.getByText(/Начните разговор с Иван Иванов/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Начните разговор с Иван Иванов/)
+    ).toBeInTheDocument();
   });
 
   it('мемоизирован (memo)', () => {
     const { rerender } = render(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     const firstRender = screen.getByText(/Начните разговор с Петр Петров/);
 
     rerender(
-      <NoChatHistoryPlaceholder name="Петр Петров" onQuickMessage={mockOnQuickMessage} />
+      <NoChatHistoryPlaceholder
+        name="Петр Петров"
+        onQuickMessage={mockOnQuickMessage}
+      />
     );
 
     const secondRender = screen.getByText(/Начните разговор с Петр Петров/);
     expect(firstRender).toBe(secondRender);
   });
 });
-

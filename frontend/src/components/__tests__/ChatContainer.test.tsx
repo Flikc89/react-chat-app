@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { BrowserRouter } from 'react-router';
-import ChatContainer from '../ChatContainer';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat, Message } from '../../types';
+import ChatContainer from '../ChatContainer';
 
 jest.mock('../../store/useChatStore');
 jest.mock('../ChatHeader', () => ({
@@ -13,7 +13,9 @@ jest.mock('../ChatHeader', () => ({
 }));
 jest.mock('../MessageInput', () => ({
   __esModule: true,
-  default: React.forwardRef(() => <div data-testid="message-input">Поле ввода</div>),
+  default: React.forwardRef(() => (
+    <div data-testid="message-input">Поле ввода</div>
+  )),
 }));
 jest.mock('../VirtualizedMessagesList', () => ({
   __esModule: true,
@@ -31,10 +33,18 @@ jest.mock('../MessagesLoadingSkeleton', () => ({
 }));
 jest.mock('../NoChatHistoryPlaceholder', () => ({
   __esModule: true,
-  default: ({ name, onQuickMessage }: { name: string; onQuickMessage: (text: string) => void }) => (
+  default: ({
+    name,
+    onQuickMessage,
+  }: {
+    name: string;
+    onQuickMessage: (text: string) => void;
+  }) => (
     <div data-testid="no-history">
       <div>Нет истории для {name}</div>
-      <button onClick={() => onQuickMessage('Привет')}>Быстрое сообщение</button>
+      <button onClick={() => onQuickMessage('Привет')}>
+        Быстрое сообщение
+      </button>
     </div>
   ),
 }));
@@ -225,4 +235,3 @@ describe('ChatContainer', () => {
     expect(mockGetMessagesByUserId).toHaveBeenCalledWith('chat-2');
   });
 });
-

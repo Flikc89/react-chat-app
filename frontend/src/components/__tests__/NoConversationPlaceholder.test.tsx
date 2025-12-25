@@ -42,4 +42,3 @@ describe('NoConversationPlaceholder', () => {
     expect(mainDiv).toHaveClass('hidden', 'md:block', 'w-full');
   });
 });
-

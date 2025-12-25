@@ -1,11 +1,11 @@
-import {
-  createLastMessage,
-  updateChatLastMessage,
-  createOptimisticMessage,
-  getChatIdFromMessage,
-} from '../chatUtils';
 import { CURRENT_USER_ID } from '../../constants';
 import type { Chat, LastMessage, Message } from '../../types';
+import {
+  createLastMessage,
+  createOptimisticMessage,
+  getChatIdFromMessage,
+  updateChatLastMessage,
+} from '../chatUtils';
 
 describe('chatUtils', () => {
   describe('createLastMessage', () => {
@@ -137,4 +137,3 @@ describe('chatUtils', () => {
     });
   });
 });
-

@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import ChatPage from '../ChatPage';
+import { render, screen } from '@testing-library/react';
 import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat } from '../../types';
+import ChatPage from '../ChatPage';
 
 jest.mock('../../store/useChatStore');
 jest.mock('../../components/ChatContainer', () => ({
@@ -176,4 +176,3 @@ describe('ChatPage', () => {
     expect(mockLoadChats).toHaveBeenCalled();
   });
 });
-

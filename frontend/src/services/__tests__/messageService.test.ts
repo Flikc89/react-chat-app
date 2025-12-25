@@ -1,6 +1,6 @@
-import { getMessages, sendMessage } from '../messageService';
 import { axiosInstance } from '../../lib/axios';
 import type { Message, SendMessageData } from '../../types';
+import { getMessages, sendMessage } from '../messageService';
 
 jest.mock('../../lib/axios');
 
@@ -151,4 +151,3 @@ describe('messageService', () => {
     });
   });
 });
-

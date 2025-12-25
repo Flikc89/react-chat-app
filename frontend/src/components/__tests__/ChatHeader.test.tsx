@@ -1,10 +1,10 @@
+import { BrowserRouter } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router';
-import ChatHeader from '../ChatHeader';
-import * as useChatStoreModule from '../../store/useChatStore';
 import { DEFAULT_AVATAR } from '../../constants';
+import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat } from '../../types';
+import ChatHeader from '../ChatHeader';
 
 jest.mock('lucide-react', () => ({
   XIcon: () => <svg data-testid="x-icon" />,
@@ -143,4 +143,3 @@ describe('ChatHeader', () => {
     removeEventListenerSpy.mockRestore();
   });
 });
-
