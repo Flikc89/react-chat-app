@@ -19,7 +19,7 @@
 - Prettier - форматирование кода
 
 ### Mock Server
-- Node.js (>=20.0.0)
+- Node.js (>=20.19.0)
 - Express 5.2.1 - HTTP сервер
 - Socket.io 4.8.2 - WebSocket сервер
 - CORS - поддержка cross-origin запросов
@@ -49,7 +49,7 @@ Chat-app/
 ## Установка и запуск
 
 ### Предварительные требования
-- Node.js >= 20.0.0
+- Node.js 20.19+ or 22.12+
 - npm
 
 ### Установка зависимостей
