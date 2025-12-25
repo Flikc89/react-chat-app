@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { MessageCircleIcon } from 'lucide-react';
+import { MessageSquareIcon } from 'lucide-react';
 
 interface NoChatHistoryPlaceholderProps {
   name: string;
@@ -11,7 +11,7 @@ const NoChatHistoryPlaceholder = memo(
     return (
       <div className="flex flex-col items-center justify-center h-full text-center p-6">
         <div className="w-16 h-16 bg-violet-500/20 rounded-full flex items-center justify-center mb-5">
-          <MessageCircleIcon className="size-8 text-violet-400" />
+          <MessageSquareIcon className="size-8 text-violet-400" />
         </div>
         <h3 className="text-lg font-medium text-gray-200 mb-3">
           Начните разговор с {name}

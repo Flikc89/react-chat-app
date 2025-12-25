@@ -1,11 +1,11 @@
-import { MessageCircleIcon } from 'lucide-react';
+import { MessageSquareIcon } from 'lucide-react';
 
 const NoConversationPlaceholder = () => {
   return (
     <div className="hidden md:block w-full">
       <div className="flex flex-col items-center justify-center h-full text-center p-6">
         <div className="size-20 bg-violet-500/20 rounded-full flex items-center justify-center mb-6">
-          <MessageCircleIcon className="size-10 text-violet-400" />
+          <MessageSquareIcon className="size-10 text-violet-400" />
         </div>
         <h3 className="text-xl font-semibold text-gray-200 mb-2">
           Выберите чат

@@ -5,7 +5,7 @@ import {
   useImperativeHandle,
   useState,
 } from 'react';
-import { SendIcon } from 'lucide-react';
+import { SendHorizontal } from 'lucide-react';
 import { useChatStore } from '../store/useChatStore';
 
 export interface MessageInputHandle {
@@ -52,7 +52,7 @@ const MessageInput = forwardRef<MessageInputHandle>((_props, ref) => {
           disabled={!text.trim()}
           className="bg-gradient-to-r from-violet-500 to-violet-600 text-white rounded-lg px-4 py-2 font-medium hover:from-violet-600 hover:to-violet-700 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <SendIcon className="w-5 h-5" />
+          <SendHorizontal className="w-5 h-5" />
         </button>
       </form>
     </div>
