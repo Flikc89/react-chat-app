@@ -6,13 +6,7 @@ import {
   getMessages,
   sendMessage as sendMessageService,
 } from '../services/messageService';
-import type {
-  Chat,
-  ChatStore,
-  LastMessage,
-  Message,
-  SendMessageData,
-} from '../types';
+import type { ChatStore, LastMessage, Message } from '../types';
 import {
   createLastMessage,
   createOptimisticMessage,
@@ -33,15 +27,13 @@ export const useChatStore = create<ChatStore>()(
       isUsersLoading: false,
       isMessagesLoading: {},
 
-      setSelectedUser: (selectedUser: Chat | null) => {
+      setSelectedUser: (selectedUser) => {
         set({ selectedUser });
       },
 
       loadChats: async (initialChatId) => {
-        const { isUsersLoading, chats } = get();
-        if (isUsersLoading || chats.length > 0) {
-          return;
-        }
+        const { isUsersLoading } = get();
+        if (isUsersLoading) return;
 
         set({ isUsersLoading: true });
         try {
@@ -52,14 +44,14 @@ export const useChatStore = create<ChatStore>()(
             const chat = findChatById(chatsData, initialChatId);
             set({ selectedUser: chat });
           }
-        } catch (error: unknown) {
-          const errorMessage = getErrorMessage(error);
-          toast.error(errorMessage || 'Ошибка загрузки чатов');
+        } catch (error) {
+          toast.error(getErrorMessage(error) || 'Ошибка загрузки чатов');
+        } finally {
+          set({ isUsersLoading: false });
         }
-        set({ isUsersLoading: false });
       },
 
-      getMessagesByUserId: async (userId: string) => {
+      getMessagesByUserId: async (userId) => {
         const { messagesByChatId } = get();
 
         const hasCache = (messagesByChatId[userId]?.length ?? 0) > 0;
@@ -91,7 +83,7 @@ export const useChatStore = create<ChatStore>()(
         }
       },
 
-      sendMessage: async (messageData: SendMessageData) => {
+      sendMessage: async (messageData) => {
         const { selectedUser, messagesByChatId, chats } = get();
         if (!selectedUser) return;
 

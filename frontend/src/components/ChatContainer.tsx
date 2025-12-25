@@ -40,8 +40,7 @@ function ChatContainer() {
     const currentUserId = selectedUser?._id;
     if (!currentUserId) return;
 
-    getMessagesByUserId(currentUserId);
-    subscribeToMessages();
+    getMessagesByUserId(currentUserId).finally(subscribeToMessages);
 
     return () => {
       if (chatId) {
