@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router';
-import { render, screen, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat, Message } from '../../types';
