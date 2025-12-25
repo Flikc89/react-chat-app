@@ -27,6 +27,7 @@ function ChatContainer() {
   );
 
   const messageInputRef = useRef<MessageInputHandle>(null);
+  const previousChatIdRef = useRef<string | null>(null);
 
   const handleQuickMessage = useCallback((text: string) => {
     messageInputRef.current?.setText(text);
@@ -37,10 +38,12 @@ function ChatContainer() {
   const isLoading = chatId ? isMessagesLoading[chatId] || false : false;
 
   useEffect(() => {
-    const currentUserId = selectedUser?._id;
-    if (!currentUserId) return;
+    if (!chatId || previousChatIdRef.current === chatId) return;
+    previousChatIdRef.current = chatId;
 
-    getMessagesByUserId(currentUserId).finally(subscribeToMessages);
+    getMessagesByUserId(chatId).finally(() => {
+      if (previousChatIdRef.current === chatId) subscribeToMessages();
+    });
 
     return () => {
       if (chatId) {
