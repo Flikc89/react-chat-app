@@ -37,7 +37,7 @@ export const useChatStore = create<ChatStore>()(
         set({ selectedUser });
       },
 
-      loadChats: async () => {
+      loadChats: async (initialChatId) => {
         const { isUsersLoading, chats } = get();
         if (isUsersLoading || chats.length > 0) {
           return;
@@ -47,6 +47,11 @@ export const useChatStore = create<ChatStore>()(
         try {
           const chatsData = await getChats();
           set({ chats: chatsData });
+
+          if (initialChatId) {
+            const chat = findChatById(chatsData, initialChatId);
+            set({ selectedUser: chat });
+          }
         } catch (error: unknown) {
           const errorMessage = getErrorMessage(error);
           toast.error(errorMessage || 'Ошибка загрузки чатов');
@@ -164,17 +169,13 @@ export const useChatStore = create<ChatStore>()(
               lastMessage: LastMessage;
               updatedAt: string;
             }) => {
-              set(
-                (state) => ({
-                  chats: updateChatLastMessage({
-                    chats: state.chats,
-                    chatId: data.chatId,
-                    lastMessage: data.lastMessage,
-                  }),
+              set((state) => ({
+                chats: updateChatLastMessage({
+                  chats: state.chats,
+                  chatId: data.chatId,
+                  lastMessage: data.lastMessage,
                 }),
-                false,
-                'chatListUpdate'
-              );
+              }));
             }
           );
         };

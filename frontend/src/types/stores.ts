@@ -21,7 +21,7 @@ export interface ChatStore {
   isUsersLoading: boolean;
   isMessagesLoading: Record<string, boolean>;
   setSelectedUser: (selectedUser: Chat | null) => void;
-  loadChats: () => Promise<void>;
+  loadChats: (chatId?: string) => Promise<void>;
   getMessagesByUserId: (userId: string) => Promise<void>;
   sendMessage: (messageData: SendMessageData) => Promise<void>;
   subscribeToChatList: () => void;

@@ -6,9 +6,6 @@ import ChatsList from '../components/ChatsList';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 import PageContainer from '../components/PageContainer';
 import { useChatStore } from '../store/useChatStore';
-import { findChatById } from '../utils/chatUtils';
-
-let hasSyncedFromUrl = false;
 
 const ChatPage = () => {
   const { chatId } = useParams<{ chatId?: string }>();
@@ -19,7 +16,6 @@ const ChatPage = () => {
     isUsersLoading,
     subscribeToChatList,
     unsubscribeFromChatList,
-    setSelectedUser,
   } = useChatStore(
     useShallow((state) => ({
       selectedUser: state.selectedUser,
@@ -34,19 +30,9 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (chats.length === 0 && !isUsersLoading) {
-      loadChats();
+      loadChats(chatId);
     }
   }, [chats.length, isUsersLoading]);
-
-  useEffect(() => {
-    if (!hasSyncedFromUrl && chatId && chats.length > 0) {
-      const chat = findChatById(chats, chatId);
-      if (chat) {
-        setSelectedUser(chat);
-        hasSyncedFromUrl = true;
-      }
-    }
-  }, [chats, chatId]);
 
   useEffect(() => {
     subscribeToChatList();
