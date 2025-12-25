@@ -1,5 +1,5 @@
-import { act, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
+import { act, render, screen } from '@testing-library/react';
 import App from '../App';
 import * as useSocketStoreModule from '../store/useSocketStore';
 
@@ -84,4 +84,3 @@ describe('App', () => {
     expect(mockConnectSocket).toHaveBeenCalledTimes(1);
   });
 });
-

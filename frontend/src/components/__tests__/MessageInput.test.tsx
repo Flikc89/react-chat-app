@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MessageInput from '../MessageInput';
 import * as useChatStoreModule from '../../store/useChatStore';
+import MessageInput from '../MessageInput';
 
 jest.mock('lucide-react', () => ({
-  SendIcon: () => <svg data-testid="send-icon" />,
+  SendHorizontal: () => <svg data-testid="send-horizontal" />,
 }));
 jest.mock('../../store/useChatStore');
 const mockSendMessage = jest.fn();
@@ -20,7 +20,9 @@ describe('MessageInput', () => {
   it('отображает поле ввода и кнопку отправки', () => {
     render(<MessageInput />);
 
-    expect(screen.getByPlaceholderText('Введите сообщение...')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Введите сообщение...')
+    ).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
@@ -52,14 +54,18 @@ describe('MessageInput', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    expect(mockSendMessage).toHaveBeenCalledWith({ text: 'Тестовое сообщение' });
+    expect(mockSendMessage).toHaveBeenCalledWith({
+      text: 'Тестовое сообщение',
+    });
   });
 
   it('очищает поле ввода после отправки', async () => {
     const user = userEvent.setup();
     render(<MessageInput />);
 
-    const input = screen.getByPlaceholderText('Введите сообщение...') as HTMLInputElement;
+    const input = screen.getByPlaceholderText(
+      'Введите сообщение...'
+    ) as HTMLInputElement;
     await user.type(input, 'Тестовое сообщение');
 
     const button = screen.getByRole('button');
@@ -77,7 +83,9 @@ describe('MessageInput', () => {
     const input = screen.getByPlaceholderText('Введите сообщение...');
     await user.type(input, 'Тестовое сообщение{Enter}');
 
-    expect(mockSendMessage).toHaveBeenCalledWith({ text: 'Тестовое сообщение' });
+    expect(mockSendMessage).toHaveBeenCalledWith({
+      text: 'Тестовое сообщение',
+    });
   });
 
   it('не отправляет пустое сообщение', async () => {

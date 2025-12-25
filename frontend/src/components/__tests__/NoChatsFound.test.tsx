@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import NoChatsFound from '../NoChatsFound';
 
 jest.mock('lucide-react', () => ({
-  MessageCircleIcon: () => <svg data-testid="message-icon" />,
+  MessageSquareIcon: () => <svg data-testid="message-icon" />,
 }));
 
 describe('NoChatsFound', () => {
@@ -28,7 +28,11 @@ describe('NoChatsFound', () => {
     const { container } = render(<NoChatsFound />);
 
     const mainDiv = container.firstChild as HTMLElement;
-    expect(mainDiv).toHaveClass('flex', 'flex-col', 'items-center', 'justify-center');
+    expect(mainDiv).toHaveClass(
+      'flex',
+      'flex-col',
+      'items-center',
+      'justify-center'
+    );
   });
 });
-

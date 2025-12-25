@@ -1,5 +1,5 @@
-import { getErrorMessage } from '../errorUtils';
 import axios from 'axios';
+import { getErrorMessage } from '../errorUtils';
 
 describe('errorUtils', () => {
   describe('getErrorMessage', () => {
@@ -70,4 +70,3 @@ describe('errorUtils', () => {
     });
   });
 });
-

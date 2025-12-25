@@ -1,6 +1,6 @@
-import { getChats } from '../chatService';
 import { axiosInstance } from '../../lib/axios';
 import type { Chat } from '../../types';
+import { getChats } from '../chatService';
 
 jest.mock('../../lib/axios');
 
@@ -67,4 +67,3 @@ describe('chatService', () => {
     });
   });
 });
-

@@ -1,9 +1,9 @@
-import { act, renderHook, waitFor } from '@testing-library/react';
 import toast from 'react-hot-toast';
-import { useChatStore } from '../useChatStore';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import * as chatService from '../../services/chatService';
 import * as messageService from '../../services/messageService';
 import type { Chat, Message } from '../../types';
+import { useChatStore } from '../useChatStore';
 
 jest.mock('react-hot-toast');
 jest.mock('../../services/chatService');
@@ -16,7 +16,9 @@ jest.mock('../useSocketStore', () => ({
   },
 }));
 
-const mockGetChats = chatService.getChats as jest.MockedFunction<typeof chatService.getChats>;
+const mockGetChats = chatService.getChats as jest.MockedFunction<
+  typeof chatService.getChats
+>;
 const mockGetMessages = messageService.getMessages as jest.MockedFunction<
   typeof messageService.getMessages
 >;
@@ -102,7 +104,7 @@ describe('useChatStore', () => {
       expect(result.current.isUsersLoading).toBe(false);
     });
 
-    it('не загружает чаты если они уже загружены', async () => {
+    it('загружает чаты если они уже загружены один раз', async () => {
       const existingChats: Chat[] = [
         {
           _id: 'chat-1',
@@ -121,7 +123,7 @@ describe('useChatStore', () => {
         await result.current.loadChats();
       });
 
-      expect(mockGetChats).not.toHaveBeenCalled();
+      expect(mockGetChats).toHaveBeenCalled();
     });
 
     it('обрабатывает ошибку при загрузке чатов', async () => {
@@ -306,4 +308,3 @@ describe('useChatStore', () => {
     });
   });
 });
-

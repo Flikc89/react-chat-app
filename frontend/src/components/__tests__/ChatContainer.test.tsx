@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { BrowserRouter } from 'react-router';
-import ChatContainer from '../ChatContainer';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as useChatStoreModule from '../../store/useChatStore';
 import type { Chat, Message } from '../../types';
+import ChatContainer from '../ChatContainer';
 
 jest.mock('../../store/useChatStore');
 jest.mock('../ChatHeader', () => ({
@@ -13,7 +13,9 @@ jest.mock('../ChatHeader', () => ({
 }));
 jest.mock('../MessageInput', () => ({
   __esModule: true,
-  default: React.forwardRef(() => <div data-testid="message-input">Поле ввода</div>),
+  default: React.forwardRef(() => (
+    <div data-testid="message-input">Поле ввода</div>
+  )),
 }));
 jest.mock('../VirtualizedMessagesList', () => ({
   __esModule: true,
@@ -31,15 +33,23 @@ jest.mock('../MessagesLoadingSkeleton', () => ({
 }));
 jest.mock('../NoChatHistoryPlaceholder', () => ({
   __esModule: true,
-  default: ({ name, onQuickMessage }: { name: string; onQuickMessage: (text: string) => void }) => (
+  default: ({
+    name,
+    onQuickMessage,
+  }: {
+    name: string;
+    onQuickMessage: (text: string) => void;
+  }) => (
     <div data-testid="no-history">
       <div>Нет истории для {name}</div>
-      <button onClick={() => onQuickMessage('Привет')}>Быстрое сообщение</button>
+      <button onClick={() => onQuickMessage('Привет')}>
+        Быстрое сообщение
+      </button>
     </div>
   ),
 }));
 
-const mockGetMessagesByUserId = jest.fn();
+const mockGetMessagesByUserId = jest.fn(() => Promise.resolve([]));
 const mockSubscribeToMessages = jest.fn();
 const mockUnsubscribeFromMessages = jest.fn();
 
@@ -102,10 +112,12 @@ describe('ChatContainer', () => {
     expect(mockGetMessagesByUserId).toHaveBeenCalledWith('chat-1');
   });
 
-  it('подписывается на сообщения при монтировании', () => {
+  it('подписывается на сообщения при монтировании', async () => {
     renderComponent();
 
-    expect(mockSubscribeToMessages).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockSubscribeToMessages).toHaveBeenCalled();
+    });
   });
 
   it('отписывается от сообщений при размонтировании', () => {
@@ -225,4 +237,3 @@ describe('ChatContainer', () => {
     expect(mockGetMessagesByUserId).toHaveBeenCalledWith('chat-2');
   });
 });
-

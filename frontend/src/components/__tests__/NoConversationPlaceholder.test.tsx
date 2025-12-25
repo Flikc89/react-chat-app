@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import NoConversationPlaceholder from '../NoConversationPlaceholder';
 
 jest.mock('lucide-react', () => ({
-  MessageCircleIcon: () => <svg data-testid="message-icon" />,
+  MessageSquareIcon: () => <svg data-testid="message-icon" />,
 }));
 
 describe('NoConversationPlaceholder', () => {
@@ -42,4 +42,3 @@ describe('NoConversationPlaceholder', () => {
     expect(mainDiv).toHaveClass('hidden', 'md:block', 'w-full');
   });
 });
-
