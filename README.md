@@ -27,7 +27,7 @@
 ## Структура проекта
 
 ```
-Chat-app/
+react-chat-app/
 ├── frontend/              # React приложение
 │   ├── src/
 │   │   ├── components/    # React компоненты
